@@ -8,46 +8,55 @@ from flask import Flask, url_for, render_template, jsonify, request
 from gevent.pywsgi import WSGIServer
 
 # Model and Classifier
-from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
+from tensorflow.keras.applications.nasnet import NASNetMobile
+
 from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
+from tensorflow.keras.applications.nasnet import preprocess_input as preprocess_input_nasnet
+from tensorflow.keras.applications.nasnet import decode_predictions as decode_predictions_nasnet
 
 # Utilities
-import base64
-from io import BytesIO
 import numpy as np
-from PIL import Image
-
+from utils import (
+    model_load,
+    base64_to_pil,
+    model_predict
+)
 
 app = Flask(__name__)
 
 
 # More models available at: https://keras.io/applications/
-model = ResNet50(weights='imagenet')
+model_mobilenet_v2 = MobileNetV2(weights='imagenet')
+model_resnet50 = ResNet50(weights='imagenet')
+model_nasnet_mobile = NASNetMobile(weights='imagenet')
 
 print('Running server on: http://127.0.0.1:5000/')
 
 
-def base64_to_pil(img_base64):
+# Utility for loading correct model and parameters
+def model_select_imagenet(model_name):
     """
-    Convert from base64 image encoding (string) to PIL image
+    Given a pretrained model chosen by user
+    Return pretrained model, preprocess- and decode functions 
     """
-    image_data = re.sub('^data:image/.+;base64,', '', img_base64)
-    img = Image.open(BytesIO(base64.b64decode(image_data))).convert('RGB')
-    return img
-
-
-def model_predict(img):
-    """
-    Make image classification prediction from pretrained Keras model
-    """
-    img = img.resize((224, 224)) # Each model expects shape: (224, 224, 3)
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-
-    x = preprocess_input(x)
-    preds = model.predict(x)
-    return preds
+    preprocess_func = preprocess_input
+    decode_preds_func = decode_predictions 
+    
+    if model_name == "ResNet50":
+        model = model_resnet50           
+    elif model_name == "MobileNetV2":
+        model = model_mobilenet_v2
+    elif model_name == "NASNetMobile":
+        model = model_nasnet_mobile
+        # Because NASNet uses different preprocessing of input and other dimensions
+        preprocess_func = preprocess_input_nasnet
+        decode_preds_func = decode_predictions_nasnet
+    else:
+        ValueError("Passed in model is not available for use")
+    
+    return model, preprocess_func, decode_preds_func
 
 
 @app.route('/', methods=['GET'])
@@ -64,11 +73,11 @@ def predict():
         model_name = request_data['settings']['model']
 
         img = base64_to_pil(image) # Get image from request
-        
+        model, preprocess_func, decode_preds_func = model_select_imagenet(model_name)
 
         # Make prediction
-        preds = model_predict(img)
-        preds = decode_predictions(preds, top=3)[0]  # Format: [(class, object_name, prob)]
+        preds = model_predict(img, model, preprocess_func)
+        preds = decode_preds_func(preds, top=3)[0]  # Format: [(class, object_name, prob)]
         print('Predicted:', preds)
         
         # TODO: Give user chopice for how many predictions returned
