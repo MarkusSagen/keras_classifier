@@ -9,10 +9,10 @@
   </head>
 
   <body>
-  <div class="main">
-    <div class="title">
-      <h2>Image Classifier API</h2>
-    </div>
+<div class="main">
+  <div class="title">
+    <h2>Image Classifier API</h2>
+  </div>
 
   
   <div class="file-upload-container">
@@ -22,7 +22,7 @@
       <img id="image-preview" class="hidden" />
     </label>
   </div>
-  <!-- New -->
+
   <main>
     <h3>Configurations</h3>
     <div>    
@@ -68,16 +68,23 @@
   </main>
 
   <div id="results-container">
-     <h3>Predictions</h3>
-      <div id="predictions-container">
-        <img src="" alt="" id="image-display" display="none">
-        <div id="pred-result" class="hidden"></div>
-        <svg id="loader" class="hidden" viewBox="0 0 32 32" width="32" height="32">
-          <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-        </svg>
+    <h3>Predictions</h3>
+    <div id="predictions-container">
+      <img src="" alt="" id="image-display" display="none">
+      <div id="predicted-results">
+        <li id="predicted-results-header" class="displayed-results">
+          <span>Label</span><span>Score</span>
+        </li>
+        <div id="generated-predictions">
+          <!-- Predictions displayed here -->
+        </div> 
       </div>
+      <svg id="loader" class="hidden" viewBox="0 0 32 32" width="32" height="32">
+        <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+      </svg>
     </div>
   </div>
+</div>
   </body>
 
   <footer>

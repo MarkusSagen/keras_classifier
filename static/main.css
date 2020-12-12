@@ -34,7 +34,7 @@ ul {
 li {
   list-style-type: none;
   color: var(--black);
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
 /* Allign settings button to centered and take even space */
@@ -44,3 +44,153 @@ label {
   font-weight: 200;
 }
 
+main>div {
+  border: 1px solid var(--gray-5);
+  background: var(--white);
+  padding: 20px; 
+}
+
+main>h4 {
+  padding-left: 8px;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px var(--gray-3);
+}
+
+.settings-item {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px var(--gray-6);
+  padding: 8px;
+  overflow: hidden;
+  padding-top: 0px;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+  padding-bottom: 25px;
+}
+
+.settings-description {
+  font-weight: var(--font-weight-medium);
+}
+
+#server-custom-deploy-url {
+  overflow: hidden;
+}
+
+#url_label {
+  font-size: 10px;
+  font-weight: var(--font-weight-normal);
+  color: var(--steel-gray-1);
+}
+
+textarea {
+  width: 110%;
+  height: 24px;
+  background: aliceblue;
+}
+
+.submit-container {
+  display: flex;
+}
+
+.displayed-results {
+  display: flex
+}
+
+.displayed-results > span { }
+
+.displayed-results > span:first-child {
+  width: 260px;
+}
+
+.displayed-results > span:last-child {
+  width: 80px;
+}
+
+.button:hover {
+  background-color: rgb(16, 110, 190);
+}
+
+.button.disabled {
+  pointer-events: none;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.main {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main .title h3 {
+  font-size: 2.3rem;
+  font-weight: 300;
+  margin: 0.8rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal:hover {
+  opacity: 0.2;
+}
+
+
+#predicted-results-header {
+  font-weight: 500; 
+  border-bottom: 1px solid black;
+  display: flex;
+}
+
+#loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  margin: 0 auto;
+}
+
+#spinner {
+  box-sizing: border-box;
+  stroke: #cccccc;
+  stroke-width: 3px;
+  transform-origin: 50%;
+  animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+    rotate 1.6s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(450deg);
+  }
+}
+@keyframes line {
+  0% {
+    stroke-dasharray: 2, 85.964;
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dasharray: 65.973, 21.9911;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 2, 85.964;
+    stroke-dashoffset: -65.973;
+    transform: rotate(90deg);
+  }
+}
