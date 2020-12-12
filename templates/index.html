@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Image Classifier</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+  </head>
+
+  <body>
+  <div class="main">
+    <div class="title">
+      <h2>Image Classifier API</h2>
+    </div>
+
+  
+  <div class="file-upload-container">
+    <input id="file-upload" class="hidden" type="file" accept="image/x-png,image/gif,image/jpeg" />
+    <label for="file-upload" id="file-drag" class="upload-box">
+      <div id="upload-caption">Click/Drag an image for prediction</div>
+      <img id="image-preview" class="hidden" />
+    </label>
+  </div>
+  <!-- New -->
+  <main>
+    <h3>Configurations</h3>
+    <div>    
+      <div id="settings-container">
+        <div class="settings-item">
+          <p class="settings-description">Set Predicion API</p>
+          <form class="toggle-radio" id="settings-server" name="servers">
+            <input type="radio" name="server" id="settings-server-local" value="Local" checked='checked' autocomplete="off"/>
+            <label for="settings-server-local">Local</label>
+          
+            <input type="radio" name="server" id="settings-server-remote" value="Remote" autocomplete="off"/>
+            <label for="settings-server-remote">Remote</label>
+
+            <input type="radio" name="server" id="settings-server-custom" value="Custom" autocomplete="off"/>
+            <label for="settings-server-custom">Custom</label>
+          </form>
+          <div id="server-custom-deploy-url">
+            <label for="url" id="url-label">URL</label>
+            <textarea id="url" class="text-input" spellcheck="false"></textarea>  
+          </div>
+        </div>
+
+        <div class="settings-item">
+          <p class="settings-description">Use Image Classifier</p>
+          <form class="toggle-radio" id="settings-model" name="models">
+            <input type="radio" name="model" id="settings-model-resnet50" value="ResNet50" checked='checked' autocomplete="off"/>
+            <label for="settings-model-resnet50">ResNet50</label>
+          
+            <input type="radio" name="model" id="settings-model-mobilenet" value="MobileNetV2" autocomplete="off"/>
+            <label for="settings-model-mobilenet">MobileNetV2</label>
+          
+            <input type="radio" name="model" id="settings-model-nasnetmobile" value="NASNetMobile" autocomplete="off"/>
+            <label for="settings-model-nasnetmobile">NASNetMobile</label>
+        </form>
+        </div>
+      </div>
+
+      <div class="submit-container">
+        <input type="button" value="Submit" class="button" onclick="submitImage();" />
+        <input type="button" value="Clear" class="button" onclick="clearImage();" />
+      </div>
+    </div>
+  </main>
+
+  <div id="results-container">
+     <h3>Predictions</h3>
+      <div id="predictions-container">
+        <img src="" alt="" id="image-display" display="none">
+        <div id="pred-result" class="hidden"></div>
+        <svg id="loader" class="hidden" viewBox="0 0 32 32" width="32" height="32">
+          <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+  </body>
+
+  <footer>
+    <script src= 
+      "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
+    </script> 
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </footer>
+</html>

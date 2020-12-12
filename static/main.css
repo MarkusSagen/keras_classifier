@@ -1,0 +1,46 @@
+:root {
+  --primary: #f04e4c;
+  --green: #00a796;
+  --turqoise: #5bc4bf;
+  --yellow: #fff685;
+  --orange: #f7955d;
+  --purple: #8781bd;
+  --black: #0c191c;
+  --gray-1: #20292e;
+  --gray-2: #404c58;
+  --gray-3: #668599;
+  --gray-4: #9eacbb;
+  --gray-5: #90aac1;
+  --gray-6: #d0e3f3;
+  --white: #ffffff;
+  --black: #000000;
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f8f8f8;
+  font-weight: var(--font-weight-normal);
+}
+
+ul {
+  padding: 0;
+  margin: 0; 
+}
+
+li {
+  list-style-type: none;
+  color: var(--black);
+  font-size: 0.8em;
+}
+
+/* Allign settings button to centered and take even space */
+label {
+  flex-basis: 100%;
+  text-align: center;
+  font-weight: 200;
+}
+
