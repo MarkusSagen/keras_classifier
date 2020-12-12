@@ -1,6 +1,6 @@
 # Machine Learning Engineer Home Assignment
-A home assignment for the machine learning engineer position at Peltarion  
-A simple image classifier API 
+A simple image classifier:  
+A home assignment for the machine learning engineer position at Peltarion   
 
 ## Overview
 - Clone repository
@@ -14,8 +14,8 @@ A simple image classifier API
 Setup and start the server
 ```shell
 # Clone repo
-git clone https://github.com/MarkusSagen/ml-home-assignment-peltarion.git
-cd ml-home-assignment-peltarion
+git clone https://github.com/MarkusSagen/ml-home-assignment.git
+cd ml-home-assignment
 
 # Install requirements
 pip install -r requirements.txt

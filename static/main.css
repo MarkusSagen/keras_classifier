@@ -112,6 +112,70 @@ textarea {
   width: 80px;
 }
 
+.toggle-radio{
+  background:#f5f5f5;
+  border:1px solid #ccc
+}
+
+.toggle-radio>input:checked+label{
+  background: #4ba6f7e3;
+}
+
+.toggle-radio>input+label:not(:last-of-type){
+  border-right:1px solid #ccc
+}
+
+.toggle-radio{
+  border-radius:4px
+}
+
+.toggle-radio{
+  display:inline-flex
+}
+
+.toggle-radio>input[type=radio]{
+  display:none
+}
+
+.toggle-radio>input[disabled]+label{
+  opacity:.5
+}
+
+.toggle-radio>input[disabled]+label:hover{
+  cursor:not-allowed
+}
+
+.toggle-radio>input+label{
+  display:inline-block;
+  margin-bottom:0;
+  padding:5px 10px;
+  float:left;
+  cursor:pointer
+}
+
+.toggle-radio>input:checked+label{
+  transition: background 150ms linear;
+}
+
+.toggle-radio[data-style=square]{
+  border-radius:0
+}
+
+.button {
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  background-color: rgb(0, 120, 212);
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  min-width: 6rem;
+  flex-basis: 100%;
+  margin: 10px;
+  margin-bottom: 0px;
+}
+
 .button:hover {
   background-color: rgb(16, 110, 190);
 }
@@ -147,6 +211,59 @@ textarea {
   opacity: 0.2;
 }
 
+.upload-box {
+  font-size: 0.8rem;
+  color: #666666;
+  cursor: pointer;
+  width: 14rem;
+  height: 10rem;
+  background: #fff;
+  border: 0.1rem dashed #838388;
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.upload-box.dragover {
+  color: #eeeeee;
+  border: 0.1rem solid rgb(0, 120, 212);
+  box-shadow: inset 0 0 0 0.1rem rgb(0, 120, 212);
+}
+
+.upload-box:hover {
+  border-color: rgb(0, 120, 212);
+}
+
+.upload-box #image-preview {
+  max-width: 14rem;
+  max-height: 8rem;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+#results-container {
+  position: relative;
+  width: auto;
+  float: left;
+  margin-bottom: 2rem;
+}
+
+#predictions-container {
+  max-height: 20rem;
+  width: 385px;
+  min-height: 245px;
+  background: var(--white);
+  border: 1px solid var(--gray-3);
+  position: relative;
+}
+
+#predicted-results {
+  color: white;
+  font-size: 1.5rem;
+  padding: 20px;
+  margin-top: -10px;
+}
 
 #predicted-results-header {
   font-weight: 500; 
