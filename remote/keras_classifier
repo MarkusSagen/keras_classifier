@@ -1,0 +1,20 @@
+
+server {
+   listen 80; 
+    server_name 3.138.254.75; 
+
+   location / {
+  	try_files $uri @app;
+   }
+
+   location @app { 
+   	include uwsgi_params; 
+        uwsgi_pass unix:///tmp/keras_classifier.sock; 
+   } 
+}
+
+
+
+
+
+
