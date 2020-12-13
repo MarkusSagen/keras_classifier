@@ -67,6 +67,7 @@ main>h4 {
   padding: 8px;
   overflow: hidden;
   padding-top: 0px;
+  min-width: 365px;
 }
 
 .settings-item:last-child {
@@ -80,18 +81,36 @@ main>h4 {
 
 #server-custom-deploy-url {
   overflow: hidden;
+  font-size: 0.8em;
+  margin-top: 8px;
+  background-color: var(--white) !important;
+}
+
+textarea:focus {
+  outline: none;
 }
 
 #url_label {
   font-size: 10px;
   font-weight: var(--font-weight-normal);
   color: var(--steel-gray-1);
+
 }
 
-textarea {
+
+#url {
   width: 110%;
-  height: 24px;
   background: aliceblue;
+  padding-top: 4px;
+  height: 1.4em;
+  padding-left: 4px;
+  color: var(--gray-1);
+  font-family: 'Ubuntu Monospace';
+  letter-spacing: 0.02em;
+}
+
+#url:focus {
+  background: #e1f6ff;
 }
 
 .submit-container {
@@ -251,7 +270,7 @@ textarea {
 
 #predictions-container {
   max-height: 20rem;
-  width: 385px;
+  width: 420px;
   min-height: 245px;
   background: var(--white);
   border: 1px solid var(--gray-3);

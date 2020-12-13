@@ -4,7 +4,7 @@ import re
 import sys
 
 # Server
-from flask import Flask, url_for, render_template, jsonify, request
+from flask import Flask, url_for, render_template, jsonify, request, send_from_directory
 from gevent.pywsgi import WSGIServer
 
 # Model and Classifier
@@ -59,6 +59,13 @@ def model_select_imagenet(model_name):
     return model, preprocess_func, decode_preds_func
 
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -89,7 +96,7 @@ def predict():
             prediction_value  = float(str(round(pred[2], round_to_digits))) 
             preds_list.append({predicted_object: prediction_value})
 
-        return jsonify(results=preds_list)
+        return jsonify(result=preds_list)
     return None
 
 

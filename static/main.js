@@ -12,19 +12,36 @@ function show(el) {
 
 
 //========================================================================
-// Initialize parameters from filed
+// Initialize Settings 
 //========================================================================
+const ServerURLs = {
+  Local: '/predict',
+  Remote: 'http://3.138.254.75/predict',
+};
 
 // Store selected settings from the form
 var selectedModel = document.querySelector('input[name="model"]:checked').value;
-var selectedServerSolution = document.querySelector('input[name="server"]:checked').value
+var selectedServerSolution = document.querySelector('input[name="server"]:checked').value;
+var selectedServerURL = '';
+var urlCustomContainer = document.getElementById('server-custom-deploy-url')
+var url = document.getElementById('url');
 
-document.servers.onclick = function(){
+document.servers.onclick = function() {
   selectedServerSolution = document.querySelector('input[name="server"]:checked').value;
+  selectedServerSolution == "Custom" ? show(urlCustomContainer) : hide(urlCustomContainer);
 }
 
-document.models.onclick = function(){
+document.models.onclick = function() { 
   selectedModel = document.querySelector('input[name="model"]:checked').value;
+}
+
+// Check if valid http url
+function checkValidRemoteServerURL () {
+  selectedServerURL = '';
+  var regex = /https?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
+  if (url.value.match(regex)) {
+    selectedServerURL = url.value;
+  }
 }
 
 //========================================================================
@@ -70,9 +87,19 @@ function submitImage() {
     window.alert("Please select a valid image for submission");
     return;
   }
-  
-  generatedPredictions.innerHTML = "";
-  loader.classList.remove("hidden");  
+
+  if (selectedServerSolution in ServerURLs) {
+    selectedServerURL = ServerURLs[selectedServerSolution]
+  } else {
+    checkValidRemoteServerURL();
+    if (selectedServerURL == "") {
+      window.alert("Please select a valid server URL for prediction \nFor example: " + ServerURLs.Remote); 
+      return;
+    }
+  } 
+
+  // generatedPredictions.innerHTML = "";
+  show(loader);  
   predictImage(imageToPredict);
 }
 
@@ -94,7 +121,7 @@ function previewFile(file) {
   reader.readAsDataURL(file);
   reader.onloadend = () => {
     imagePreview.src = URL.createObjectURL(file);
-
+    
     show(imagePreview);
     hide(uploadFileCaption);
 
@@ -108,9 +135,9 @@ function previewFile(file) {
 // Make prediction request
 //========================================================================
 
+
 function predictImage(image) {
-  // TODO: Add function for sending prediction locally or remotelly
-  fetch("/predict", {
+  fetch(selectedServerURL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -125,11 +152,16 @@ function predictImage(image) {
   .then(resp => {
     if (resp.ok)
       resp.json().then(data => {
+        hide(loader);
         displayResult(data);
       });
+    saveSettings(); // If successful server URL used; Remember it
     })
     .catch(err => {
+      hide(loader);
       console.log("An error occured with the prediction", err.message);
+      console.log("If a remove server URL is used for predictions, verify that CORS is enabled");
+      deleteSettings(); 
     });
 }
 
@@ -139,12 +171,10 @@ function predictImage(image) {
 //========================================================================
 
 function displayResult(data) {
-  hide(loader);    
-
   // Get all predictions in order and display
-  for (var i in data.results) {
-    key = Object.keys(data.results[i])[0];      
-    value = Object.values(data.results[i])[0];
+  for (var i in data.result) {
+    key = Object.keys(data.result[i])[0];      
+    value = Object.values(data.result[i])[0];
     $("#generated-predictions")
       .append('<li>' + '<span>' + key + '</span>' + ' ' + '<span>' + value + '</span>' + '</li>');         
   }
@@ -153,3 +183,24 @@ function displayResult(data) {
   show(generatedPredictions);
 }
 
+
+//========================================================================
+// Display prediction
+//========================================================================
+
+function saveSettings() {
+  localStorage.setItem('url', url.value);
+}
+
+function deleteSettings() {
+  url.value = '';
+  localStorage.setItem('url', url.value);
+}
+
+function restoreSettings() {
+  url.value = localStorage.getItem('url') || '';
+}
+
+
+// Load Stored values
+restoreSettings();
