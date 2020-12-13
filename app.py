@@ -5,6 +5,7 @@ import sys
 
 # Server
 from flask import Flask, url_for, render_template, jsonify, request, send_from_directory
+from flask_cors import CORS
 from gevent.pywsgi import WSGIServer
 
 # Model and Classifier
@@ -25,6 +26,7 @@ from utils import (
 )
 
 app = Flask(__name__)
+CORS(app))
 
 
 # More models available at: https://keras.io/applications/
