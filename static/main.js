@@ -100,7 +100,8 @@ function submitImage() {
  
   // Remove previous predictions
   generatedPredictions.innerHTML = "";
-
+  
+  console.log("Sending predictions to address: " + selectedServerURL)
   show(loader);  
   predictImage(imageToPredict);
 }

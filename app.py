@@ -26,7 +26,7 @@ from utils import (
 )
 
 app = Flask(__name__)
-CORS(app))
+CORS(app)
 
 
 # More models available at: https://keras.io/applications/
