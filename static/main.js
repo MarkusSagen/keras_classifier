@@ -97,8 +97,10 @@ function submitImage() {
       return;
     }
   } 
+ 
+  // Remove previous predictions
+  generatedPredictions.innerHTML = "";
 
-  // generatedPredictions.innerHTML = "";
   show(loader);  
   predictImage(imageToPredict);
 }
