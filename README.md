@@ -16,8 +16,8 @@ A home assignment for the machine learning engineer position at Peltarion
 Setup and start the server
 ```shell
 # Clone repo
-git clone https://github.com/MarkusSagen/ml-home-assignment.git
-cd ml-home-assignment
+git clone https://github.com/MarkusSagen/keras_classifier.git
+cd keras_classifier
 
 # Install requirements
 pip install -r requirements.txt
@@ -32,7 +32,7 @@ Now on http://localhost:5000 you can send in an image and get out a prediction
 For serving our Flask app in production, we deploy a AWS EC2 instance   
 with uWSGI and NGINX.   
    
-For detailed instructions see: [HERE](remote/README.md)_  
+For detailed instructions see: [HERE](remote/README.md)    
 
 ## Make prediction on a remote server
 Go to http://localhost:5000 and upload an image for classification  
